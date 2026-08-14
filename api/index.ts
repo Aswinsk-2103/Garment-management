@@ -14,11 +14,20 @@ registerStorageProxy(app);
 registerOAuthRoutes(app);
 
 app.use(
-  ["/api/trpc", "/trpc", "/"],
+  ["/api/trpc", "/trpc"],
   createExpressMiddleware({
     router: appRouter,
     createContext,
   })
 );
+
+app.use((req, res) => {
+  res.status(404).json({ error: "API Route Not Found", url: req.url });
+});
+
+app.use((err: any, req: any, res: any, next: any) => {
+  console.error("[Vercel API Error]", err);
+  res.status(500).json({ error: err?.message || String(err), stack: err?.stack });
+});
 
 export default app;
