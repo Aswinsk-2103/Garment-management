@@ -1,5 +1,5 @@
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import express from "express";
+import express, { Request, Response } from "express";
 import { createContext } from "../server/_core/context";
 import { registerOAuthRoutes } from "../server/_core/oauth";
 import { registerStorageProxy } from "../server/_core/storageProxy";
@@ -21,11 +21,11 @@ app.use(
   })
 );
 
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json({ error: "API Route Not Found", url: req.url });
 });
 
-app.use((err: any, req: any, res: any, next: any) => {
+app.use((err: any, req: Request, res: Response, next: any) => {
   console.error("[Vercel API Error]", err);
   res.status(500).json({ error: err?.message || String(err), stack: err?.stack });
 });

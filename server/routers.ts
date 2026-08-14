@@ -52,16 +52,18 @@ export const appRouter = router({
         });
 
         const cookieOptions = getSessionCookieOptions(ctx.req);
-        if (typeof ctx.res?.cookie === "function") {
-          ctx.res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
+        const res = ctx.res as any;
+        if (res && typeof res.cookie === "function") {
+          res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
         }
 
         return { success: true, token: sessionToken };
       }),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
-      if (typeof ctx.res?.clearCookie === "function") {
-        ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
+      const res = ctx.res as any;
+      if (res && typeof res.clearCookie === "function") {
+        res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
       }
       return { success: true } as const;
     }),
