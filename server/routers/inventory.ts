@@ -19,7 +19,7 @@ export const inventoryRouter = router({
     notes: z.string().trim().max(1000).optional(),
   })).mutation(async ({ input }) => {
     const db = await requireDb();
-    await db.transaction(async (tx) => {
+    await db.transaction(async (tx: any) => {
       await tx.insert(inventoryReceipts).values({ ...input, receivedDate: new Date(input.receivedDate), referenceNo: input.referenceNo || null, notes: input.notes || null });
       await tx.update(garments).set({ quantity: sql`${garments.quantity} + ${input.quantity}` }).where(eq(garments.id, input.garmentId));
     });

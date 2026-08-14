@@ -34,6 +34,6 @@ export const catalogRouter = router({
   lowStock: moduleProcedure("inventory").query(async () => {
     const db = await requireDb();
     const rows = await db.select().from(garments).orderBy(desc(garments.updatedAt));
-    return rows.filter((item) => item.quantity <= item.lowStockThreshold);
+    return rows.filter((item: any) => item.quantity <= item.lowStockThreshold);
   }),
 });

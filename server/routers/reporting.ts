@@ -10,10 +10,10 @@ export const dashboardRouter = router({
     const [allGarments, allOrders, allBatches] = await Promise.all([
       db.select().from(garments), db.select().from(salesOrders), db.select().from(productionBatches),
     ]);
-    const inventoryUnits = allGarments.reduce((total, item) => total + item.quantity, 0);
-    const lowStockItems = allGarments.filter((item) => item.quantity <= item.lowStockThreshold).length;
-    const activeProduction = allBatches.filter((batch) => !["completed", "on_hold"].includes(batch.progressStatus)).length;
-    const revenue = allOrders.filter((order) => order.status !== "cancelled").reduce((total, order) => total + Number(order.totalAmount), 0);
+    const inventoryUnits = allGarments.reduce((total: number, item: any) => total + item.quantity, 0);
+    const lowStockItems = allGarments.filter((item: any) => item.quantity <= item.lowStockThreshold).length;
+    const activeProduction = allBatches.filter((batch: any) => !["completed", "on_hold"].includes(batch.progressStatus)).length;
+    const revenue = allOrders.filter((order: any) => order.status !== "cancelled").reduce((total: number, order: any) => total + Number(order.totalAmount), 0);
     return { orderCount: allOrders.length, inventoryUnits, lowStockItems, activeProduction, revenue };
   }),
 });

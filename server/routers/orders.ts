@@ -26,7 +26,7 @@ export const purchaseOrderRouter = router({
     const db = await requireDb();
     const total = input.items.reduce((sum, item) => sum + item.quantity * item.unitCost, 0);
     const { items, orderDate, expectedDate, supplierAddress, supplierGstin, ...header } = input;
-    await db.transaction(async (tx) => {
+    await db.transaction(async (tx: any) => {
       const result = await tx.insert(purchaseOrders).values({ ...header, supplierAddress: supplierAddress || null, supplierGstin: supplierGstin || null, orderDate: new Date(orderDate), expectedDate: expectedDate ? new Date(expectedDate) : null, totalAmount: total.toFixed(2) });
       const orderId = Number(result[0].insertId);
       await tx.insert(purchaseOrderItems).values(items.map((item) => ({ purchaseOrderId: orderId, garmentId: item.garmentId, quantity: item.quantity, unitCost: item.unitCost.toFixed(2), lineTotal: (item.quantity * item.unitCost).toFixed(2) })));
@@ -53,7 +53,7 @@ export const salesOrderRouter = router({
     const db = await requireDb();
     const total = input.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
     const { items, orderDate, deliveryDate, customerGstin, ...header } = input;
-    await db.transaction(async (tx) => {
+    await db.transaction(async (tx: any) => {
       const result = await tx.insert(salesOrders).values({ ...header, customerGstin: customerGstin || null, orderDate: new Date(orderDate), deliveryDate: deliveryDate ? new Date(deliveryDate) : null, totalAmount: total.toFixed(2) });
       const orderId = Number(result[0].insertId);
       await tx.insert(salesOrderItems).values(items.map((item) => ({ salesOrderId: orderId, garmentId: item.garmentId, quantity: item.quantity, unitPrice: item.unitPrice.toFixed(2), lineTotal: (item.quantity * item.unitPrice).toFixed(2) })));
