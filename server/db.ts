@@ -1,5 +1,4 @@
 import { desc, eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
 import {
   deliveryChallanItems,
   deliveryChallans,
@@ -16,7 +15,7 @@ import {
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
-let _db: ReturnType<typeof drizzle> | null = null;
+let _db: any = null;
 const inMemoryUsers = new Map<string, User>();
 let mockUserIdCounter = 100;
 
@@ -215,6 +214,7 @@ const mockDb = new MockDb() as any;
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
+      const { drizzle } = await import("drizzle-orm/mysql2");
       _db = drizzle(process.env.DATABASE_URL);
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
