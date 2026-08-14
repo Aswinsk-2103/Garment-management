@@ -13,19 +13,12 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 registerStorageProxy(app);
 registerOAuthRoutes(app);
 
-const trpcMiddleware = createExpressMiddleware({
-  router: appRouter,
-  createContext,
-});
-
-app.use("/api/trpc", trpcMiddleware);
-app.use("/trpc", trpcMiddleware);
-
-app.use((req, res, next) => {
-  if (req.url.includes("trpc") || req.originalUrl.includes("trpc")) {
-    return trpcMiddleware(req, res, next);
-  }
-  next();
-});
+app.use(
+  ["/api/trpc", "/trpc", "/"],
+  createExpressMiddleware({
+    router: appRouter,
+    createContext,
+  })
+);
 
 export default app;
