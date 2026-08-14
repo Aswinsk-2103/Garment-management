@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1786719536304,
+      "tag": "0000_solid_robin_chapel",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1786719743284,
+      "tag": "0001_unique_magik",
+      "breakpoints": true
+    }
+  ]
+}

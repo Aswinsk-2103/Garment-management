@@ -1,0 +1,21 @@
+# Project TODO
+
+- [x] Define the database schema for role access, garments, inventory, purchase orders, sales orders, production batches, delivery challans, and report summaries.
+- [x] Create and apply the database migration for all operational records and line items.
+- [x] Implement protected server procedures with module-level authorization for Admin, Store/Inventory, Production, and Accounts roles.
+- [x] Build the royal-blue blueprint visual system with technical grid, line-drawn UI, and responsive layout rules.
+- [x] Build the login entry page and authenticated application shell with role-aware navigation.
+- [x] Implement dashboard metrics for orders, inventory, production, and revenue.
+- [x] Implement garment catalog forms with style, size, color, and quantity fields plus add, edit, and delete actions.
+- [x] Implement inventory stock receiving, current stock views, and low-stock alerts.
+- [x] Implement purchase order creation and supplier tracking.
+- [x] Implement sales orders with customer details and multiple line items.
+- [x] Implement production-batch logging, assigned quantities, and progress status tracking.
+- [x] Implement delivery-challan creation and a printable layout mirroring the supplied document’s header, item-table, and signature positions.
+- [x] Implement reports for order history, current inventory, and production output.
+- [x] Add Vitest coverage for authorization and key business procedures.
+- [x] Verify delivery-challan selection and printable sheet against the supplied header, item table, and signature layout.
+- [x] Add focused Vitest coverage for transaction creation and authorization failure paths.
+- [x] Make the initial empty-workspace state clearly explain how to create the first operational record.
+- [x] Verify desktop and mobile layouts, form fields, role restrictions, and print output.
+- [x] Save a final project checkpoint and provide the completed application to the user.
