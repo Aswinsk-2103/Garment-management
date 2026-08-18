@@ -3,7 +3,7 @@ services:
     name: garment-management
     env: node
     plan: free
-    buildCommand: npm install --legacy-peer-deps && npm run build
+    buildCommand: npm install --legacy-peer-deps --include=dev && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
