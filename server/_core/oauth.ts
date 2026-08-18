@@ -10,7 +10,7 @@ function getQueryParam(req: any, key: string): string | undefined {
 }
 
 export function registerOAuthRoutes(app: any) {
-  app.get("/api/oauth/callback", async (req: any, res: any) => {
+  const handler = async (req: any, res: any) => {
     const code = getQueryParam(req, "code");
     const state = getQueryParam(req, "state");
 
@@ -61,5 +61,8 @@ export function registerOAuthRoutes(app: any) {
       console.error("[OAuth] Callback failed", error);
       res.status(500).json({ error: "OAuth callback failed" });
     }
-  });
+  };
+
+  app.get("/api/oauth/callback", handler);
+  app.get("/oauth/callback", handler);
 }

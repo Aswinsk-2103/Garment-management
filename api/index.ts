@@ -5,6 +5,8 @@ let appRouter: any = null;
 let createContext: any = null;
 let routerError: string | null = null;
 let contextError: string | null = null;
+let registerOAuthRoutes: any = null;
+let registerStorageProxy: any = null;
 
 try {
   const routerMod = await import("../server/routers");
@@ -22,17 +24,38 @@ try {
   contextError = err?.stack || err?.message || String(err);
 }
 
+try {
+  const oauthMod = await import("../server/_core/oauth");
+  registerOAuthRoutes = oauthMod.registerOAuthRoutes;
+} catch (err: any) {
+  console.error("Failed to import registerOAuthRoutes:", err);
+}
+
+try {
+  const storageMod = await import("../server/_core/storageProxy");
+  registerStorageProxy = storageMod.registerStorageProxy;
+} catch (err: any) {
+  console.error("Failed to import registerStorageProxy:", err);
+}
+
 const app = express();
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+if (registerStorageProxy) registerStorageProxy(app);
+if (registerOAuthRoutes) registerOAuthRoutes(app);
 
 app.use((req: any, res: any, next: any) => {
   if (req.url.startsWith("/api/trpc")) {
     req.url = req.url.replace("/api/trpc", "");
   } else if (req.url.startsWith("/trpc")) {
     req.url = req.url.replace("/trpc", "");
-  } else if (req.url.startsWith("/api")) {
+  } else if (
+    req.url.startsWith("/api") &&
+    !req.url.startsWith("/api/oauth") &&
+    !req.url.startsWith("/api/manus-storage")
+  ) {
     req.url = req.url.replace("/api", "");
   }
   if (!req.url.startsWith("/")) {
