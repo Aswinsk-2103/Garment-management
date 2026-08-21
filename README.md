@@ -190,13 +190,21 @@ Order History Stored
 
 | Layer           | Technology                   |
 | --------------- | ---------------------------- |
-| Frontend        | [Your Frontend Technology]   |
-| Backend         | [Your Backend Technology]    |
-| Database        | [Your Database]              |
-| Authentication  | [Your Authentication Method] |
-| Styling         | [Your Styling Framework]     |
+| Frontend        | React                        |
+| Backend         | Express                      |
+| Database        | MySQL                        |
+| Authentication  | JWT                          |
+| Styling         | Tailwind                     |
 | Deployment      | Render                       |
 | Version Control | Git / GitHub                 |
+
+Authentication	JWT
+
+Styling	Tailwind
+
+Deployment	Render
+
+Version Control	GitHub
 
 ---
 
